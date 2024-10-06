@@ -1,0 +1,133 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Student Management API"
+  description: "API for managing students (CRUD operations)"
+host: "localhost:3000"
+basePath: "/api/v1"
+schemes:
+  - "http"
+paths:
+  /student/{id}:
+    get:
+      summary: "Retrieve a student by ID"
+      description: "Returns a single student by their ID."
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "string"
+          description: "ID of the student to retrieve"
+      responses:
+        200:
+          description: "Successful response"
+          schema:
+            type: "object"
+            properties:
+              id:
+                type: "string"
+              name:
+                type: "string"
+              major:
+                type: "string"
+              studyYear:
+                type: "integer"
+              gpa:
+                type: "number"
+        404:
+          description: "Student not found"
+    delete:
+      summary: "Delete a student by ID"
+      description: "Removes a student from the system."
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "string"
+          description: "ID of the student to delete"
+      responses:
+        200:
+          description: "Student deleted successfully"
+        404:
+          description: "Student not found"      
+  /student:
+    post:
+      summary: "Create a new student"
+      description: "Add a new student to the system."
+      parameters:
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            type: "object"
+            required:
+              - name
+              - id
+              - major
+              - studyYear
+              - gpa
+            properties:
+              name:
+                type: "string"
+              id:
+                type: "string"
+              major:
+                type: "string"
+              studyYear:
+                type: "integer"
+              gpa:
+                type: "number"
+      responses:
+        201:
+          description: "Student created successfully"
+        401:
+          description: "Missing required fields"
+    
+  /student:
+    put:
+      summary: "Update an existing student"
+      description: "Modify the details of an existing student."
+      parameters:
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            type: "object"
+            required:
+              - name
+              - id
+              - major
+              - studyYear
+              - gpa
+            properties:
+              name:
+                type: "string"
+              id:
+                type: "string"
+              major:
+                type: "string"
+              studyYear:
+                type: "integer"
+              gpa:
+                type: "number"
+      responses:
+        200:
+          description: "Student updated successfully"
+        401:
+          description: "Missing required fields"
+        404:
+          description: "Student not found"
+definitions:
+  Student:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      major:
+        type: "string"
+      studyYear:
+        type: "integer"
+      gpa:
+        type: "number"
